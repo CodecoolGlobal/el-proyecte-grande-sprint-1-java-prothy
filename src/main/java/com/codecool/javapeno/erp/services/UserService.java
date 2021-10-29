@@ -5,6 +5,7 @@ import com.codecool.javapeno.erp.entities.User;
 import com.codecool.javapeno.erp.repositories.HolidayRepository;
 import com.codecool.javapeno.erp.entities.UserStatus;
 import com.codecool.javapeno.erp.repositories.UserRepository;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,9 +14,11 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.*;
 
+@Getter
 @Service
 @RequiredArgsConstructor
 public class UserService {
+
     private final UserRepository userRepository;
     private final HolidayRepository holidayRepository;
 
