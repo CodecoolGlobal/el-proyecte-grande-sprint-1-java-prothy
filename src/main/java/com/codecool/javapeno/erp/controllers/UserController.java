@@ -108,7 +108,7 @@ public class UserController {
             notes = "Add new user to the users book",
             response = String.class)
 
-    public String addNewUser(
+    public User addNewUser(
             @ApiParam(value = "All parameter for create new user", required = true)
             @RequestBody User user) {
 

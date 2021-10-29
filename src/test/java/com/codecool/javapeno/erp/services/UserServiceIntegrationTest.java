@@ -4,25 +4,21 @@ import com.codecool.javapeno.erp.entities.User;
 import com.codecool.javapeno.erp.entities.UserPrivilege;
 import com.codecool.javapeno.erp.entities.UserStatus;
 import com.codecool.javapeno.erp.repositories.UserRepository;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@ContextConfiguration
+//@ContextConfiguration
+@SpringBootTest
 @Transactional
 public class UserServiceIntegrationTest {
 
@@ -37,7 +33,7 @@ public class UserServiceIntegrationTest {
 
     @BeforeEach
     void initTests() {
-        uuid = UUID.fromString("2b593973-a87e-4653-b1cf-e337f34b3cb3");
+        uuid = UUID.randomUUID();
         user = new User();
 
         user.setId(uuid);
@@ -48,7 +44,6 @@ public class UserServiceIntegrationTest {
     }
 
     @Test
-    @Transactional
     void addNewUser_addsNewUser() {
         userService.addNewUser(user);
         assertDoesNotThrow(() -> userService.addNewUser(user));
@@ -56,21 +51,19 @@ public class UserServiceIntegrationTest {
     }
 
     @Test
-    @Transactional
     void getUserById_returnsUserIfValidId() {
-        userService.addNewUser(user);
+        User savedUser = userService.addNewUser(user);
         System.out.println("user added");
-        assertDoesNotThrow(() -> userService.getUserById(uuid));
-        assertEquals(userService.getUserById(uuid), user);
+        assertDoesNotThrow(() -> userService.getUserById(savedUser.getId()));
+        assertEquals(userService.getUserById(savedUser.getId()), savedUser);
     }
 
     @Test
-    @Transactional
     void updateUserById_updatesUserIfValidId() {
-        userService.addNewUser(user);
+        User savedUser = userService.addNewUser(user);
         System.out.println("user added");
-        assertDoesNotThrow(() -> userService.updateUserById(uuid, user));
-        assertNotNull(userService.updateUserById(uuid, user));
+        assertDoesNotThrow(() -> userService.updateUserById(savedUser.getId(), user));
+        assertNotNull(userService.updateUserById(savedUser.getId(), savedUser));
     }
 
     @Test
