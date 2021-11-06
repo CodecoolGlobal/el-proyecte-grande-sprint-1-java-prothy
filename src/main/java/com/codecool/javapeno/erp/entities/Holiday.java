@@ -1,6 +1,9 @@
 package com.codecool.javapeno.erp.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -10,6 +13,9 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Holiday {
     @Id
     @GeneratedValue
@@ -27,36 +33,5 @@ public class Holiday {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public void setDateFrom(LocalDate dateFrom) {
-        this.dateFrom = dateFrom;
-    }
-
-    public void setDateTo(LocalDate dateTo) {
-        this.dateTo = dateTo;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public LocalDate getDateFrom() {
-        return dateFrom;
-    }
-
-    public LocalDate getDateTo() {
-        return dateTo;
-    }
-
-    public User getUser() {
-        return user;
-    }
 }
 
