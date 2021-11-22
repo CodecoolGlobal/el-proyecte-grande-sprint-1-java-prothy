@@ -1,5 +1,6 @@
 package com.codecool.javapeno.erp.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,19 +18,24 @@ import java.util.UUID;
 public class UserAuthentication {
 
     @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name="system-uuid", strategy = "uuid")
+    @GeneratedValue
+    @GenericGenerator(name = "postgres-uuid", strategy = "uuid")
     private UUID id;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "users_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private User user;
 
-    @Column
     @NotNull
-    private String loginName;
+    private String username;
 
-    @Column
     @NotNull
     private String password;
+
+    public UserAuthentication(User user, String generatedPassword) {
+        this.user = user;
+        this.username = user.getEmail();
+        this.password = generatedPassword;
+    }
 }

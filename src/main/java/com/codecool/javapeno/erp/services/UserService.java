@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -21,14 +20,17 @@ import java.util.UUID;
 public class UserService {
     private final UserRepository userRepository;
     private final HolidayRepository holidayRepository;
+    private final UserAuthenticationService userAuthenticationService;
     private final EmailSenderService emailSenderService;
 
     @Autowired
     public UserService(UserRepository userRepository, HolidayRepository holidayRepository,
-                       EmailSenderService emailSenderService) {
+                       EmailSenderService emailSenderService,
+                       UserAuthenticationService userAuthenticationService) {
         this.userRepository = userRepository;
         this.holidayRepository = holidayRepository;
         this.emailSenderService = emailSenderService;
+        this.userAuthenticationService = userAuthenticationService;
     }
 
     public User getUserById(UUID userId) {
@@ -55,6 +57,7 @@ public class UserService {
 
     public String addNewUser(User user) {
         userRepository.save(user);
+        userAuthenticationService.createAuthenticationByUser(user);
         emailSenderService.sendEmail(user);
         return "New user saved";
     }
