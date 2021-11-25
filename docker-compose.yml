@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  database:
+    image: 'postgres:13.1-alpine'
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  backend:
+    image: 'javapeno-erp-backend:latest'
+    ports:
+      - '8080:8080'
+    build:
+      context: .
+    container_name: javapeno-erp-backend
+    depends_on:
+      - database
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - PSQL_HOST=database
+      - PSQL_DB_NAME=postgres
+      - PSQL_USERNAME=postgres
+      - PSQL_PASSWORD=postgres
