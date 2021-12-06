@@ -9,7 +9,7 @@ values (uuid_in((md5('xyz3f59d-94a4-5f67-5b43-8e3a73434dc6'))::cstring), 'Warsza
 
 
 insert into users (id, created_date, email, name, phone_number, privilege, salary, status, updated_date, address_id)
-values (uuid_in((md5('8cb3a14a-e68e-f902-badb-3e9877e6b330'))::cstring), date(current_timestamp), 'test@codecool.com', 'Teszt Elek', '+3611234567', 'USER', 320000, 'ACTIVE', date(current_timestamp), uuid_in((md5('bce3f59d-94a4-5f67-5b43-8e3a73434dc6'))::cstring));
+values (uuid_in((md5('8cb3a14a-e68e-f902-badb-3e9877e6b330'))::cstring), date(current_timestamp), 'test@codecool.com', 'Teszt Elek', '+3611234567', 'ADMIN', 320000, 'ACTIVE', date(current_timestamp), uuid_in((md5('bce3f59d-94a4-5f67-5b43-8e3a73434dc6'))::cstring));
 
 insert into users (id, created_date, email, name, phone_number, privilege, salary, status, updated_date, address_id)
 values (uuid_in((md5('28b483cc-f11f-ad50-0743-996de7cb01c4'))::cstring), date(current_timestamp), 'tester@codecool.com', 'Minta Aladár', '+3619876543', 'USER', 300000, 'ACTIVE', date(current_timestamp), uuid_in((md5('abc3f59d-94a4-5f67-5b43-8e3a73434dc6'))::cstring));
